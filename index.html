@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Web</title>
+    <style>
+        * {
+            margin: 0%;
+            padding: 0%;
+            text-decoration: none;
+        }
+
+        #back {
+            width: 100vw;
+            height: 100vh;
+            background-image: url(weather\ back.jpg);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #form{
+            padding-top: 1%;
+        }
+        #input{
+            padding: 6%;
+            background: transparent;
+        }
+        #data{
+            color: rgb(5, 5, 124);
+            text-align: left;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="back">
+
+
+        <h1 style="color: blue; padding-top: 2%;">Chuck today weather.</h1>
+
+        <form action="" id="form">
+
+            <input id="input" type="text" placeholder="Type City Name.......">
+
+            <div id="data">
+
+            </div>
+
+        </form>
+
+    </div>
+    <script>
+
+        let form = document.getElementById('form');
+        let data = document.getElementById('data');
+         form.addEventListener('submit',async function(a)
+         {
+            a.preventDefault();
+            let input = document.getElementById('input').value;
+
+            
+            let key = "41f8814f8ec2ead0661cc6f3cb9dd429";
+           let api = `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${key}`;
+
+           let Response = await fetch(api);
+
+           Response = await Response.text();
+
+
+           let res =JSON.parse(Response);
+           console.log(res)
+          
+
+           data.innerHTML = "<br>"+`<h4>Country &nbsp:&nbsp&nbsp&nbsp   ${res.sys.country} </h4>`+"<hr><hr><br>";
+           data.innerHTML += `Temperature &nbsp:&nbsp&nbsp&nbsp  ${res.main.temp}`+"<hr><br>";
+           data.innerHTML += `Feels Like &nbsp:&nbsp&nbsp&nbsp  ${res.main.feels_like}`+"<hr><br>";
+           data.innerHTML += `Pressure &nbsp:&nbsp&nbsp&nbsp  ${res.main.pressure}`+"<hr><br>";
+           
+
+
+         });
+    </script>
+</body>
+
+</html>
